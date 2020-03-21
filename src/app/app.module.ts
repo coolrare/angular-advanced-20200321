@@ -11,7 +11,7 @@ import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, LayoutModule, PostsModule, AuthModule, AppRoutingModule],
+  imports: [BrowserModule, HttpClientModule, LayoutModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })
