@@ -4,7 +4,7 @@ import { MainComponent } from './layout/main/main.component';
 import { PostsComponent } from './posts/posts/posts.component';
 import { LoginComponent } from './auth/login/login.component';
 import { PostComponent } from './posts/post/post.component';
-import { createComponent } from '@angular/compiler/src/core';
+import { EditorComponent } from './posts/editor/editor.component';
 
 const routes: Routes = [
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'create',
-        component: createComponent
+        component: EditorComponent
       }
     ]
   },
