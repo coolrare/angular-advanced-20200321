@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../post.service';
 import { Article } from '../article';
 import { Observable } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post',
@@ -32,7 +32,12 @@ export class PostComponent implements OnInit {
     this.article$ = this.route.paramMap.pipe(
       map(paramMap => paramMap.get('id')),
       switchMap(id => this.articleService.getArticle(id)),
-      map(article => article.article)
+      map(article => article.article),
+      tap((data) => {
+        // TODO: do something
+
+        return data;
+      })
     );
   }
 
