@@ -1,10 +1,11 @@
-<div class="post-page">
+<div class="post-page" *ngIf="article$ | async as item">
 
   <div class="banner">
     <div class="container">
 
-      <h1>{{ article?.title }}</h1>
-
+      <!-- <h1>{{ article?.title }}</h1> -->
+      <!-- <h1>{{ (article$ | async)?.title }}</h1> -->
+      <h1>{{ item.title }}</h1>
       <div class="post-meta">
 
         <div class="info">
@@ -21,7 +22,8 @@
 
     <div class="row post-content">
       <div class="col-md-12">
-        {{ article?.body }}
+        <!-- {{ (article$ | async)?.body }} -->
+        {{ item.body }}
       </div>
     </div>
 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../post.service';
 import { Article } from '../article';
+import { Observable } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post',
@@ -10,6 +12,7 @@ import { Article } from '../article';
 })
 export class PostComponent implements OnInit {
   article: Article;
+  article$: Observable<Article>;
 
   constructor(private route: ActivatedRoute, private articleService: PostService) { }
 
@@ -18,11 +21,19 @@ export class PostComponent implements OnInit {
     //   console.log(params.id);
     // });
 
-    this.route.paramMap.subscribe(params => {
-      this.articleService.getArticle(params.get('id')).subscribe(article => {
-        this.article = article.article;
-      });
-    });
+    // this.route.paramMap.subscribe(params => {
+    //   this.articleService
+    //     .getArticle(params.get('id'))
+    //     .subscribe(article => {
+    //     this.article = article.article;
+    //   });
+    // });
+
+    this.article$ = this.route.paramMap.pipe(
+      map(paramMap => paramMap.get('id')),
+      switchMap(id => this.articleService.getArticle(id)),
+      map(article => article.article)
+    );
   }
 
 }
