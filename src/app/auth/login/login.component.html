@@ -8,7 +8,8 @@
         <div ngForm #form="ngForm">
           <fieldset class="form-group">
             <input name="email" class="form-control form-control-lg" type="text" placeholder="Email" ngModel
-              #username="ngModel" required email>
+            #username="ngModel" required email>
+
             <!--
             {{ loginData.username }} / {{ username.value }}
 
@@ -36,7 +37,9 @@
               </span>
             </span>
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="form.invalid" (click)="login()">
+          <button
+            (click)="login(form.value)"
+            class="btn btn-lg btn-primary pull-xs-right" [disabled]="form.invalid" (click)="login()">
             Sign in
           </button>
         </div>

@@ -12,7 +12,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
+  login(loginData: any) {
+    console.log(loginData);
     // TODO: login...
     // this.router.navigate(['/', id, 'post'])
     this.router.navigateByUrl('/');

@@ -7,7 +7,10 @@
           <fieldset class="form-group">
             <input formControlName="title" class="form-control form-control-lg" type="text" placeholder="Post Title">
 
-            {{ form.get('title').value }}
+            <!-- {{ form.get('title').value }}
+            {{ form.get('title').invalid }} -->
+            <!-- {{ form.get('title').errors | json }} -->
+            <span *ngIf="titleExsit$ | async" >* 標題重複</span>
 
           </fieldset>
           <fieldset class="form-group">
@@ -40,7 +43,10 @@
                 <i class="ion-close-round"></i> webdev</span> -->
             </div>
           </fieldset>
-          <button type="button" class="btn btn-lg btn-primary pull-xs-right">
+          <button
+            [disabled]="form.invalid"
+            (click)="submit()"
+            type="button" class="btn btn-lg btn-primary pull-xs-right">
             Create Post
           </button>
         </div>
