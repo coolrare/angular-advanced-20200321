@@ -13,7 +13,7 @@
       <div class="col-md-12">
 
 
-        <div class="post-preview">
+        <div class="post-preview" *ngFor="let article of articles">
           <div class="post-meta">
 
             <div class="info">
@@ -21,8 +21,8 @@
               <span class="date">2019-04-26</span>
             </div>
           </div>
-          <a class="preview-link">
-            <h1>How to build webapps that scale</h1>
+          <a class="preview-link" [routerLink]="['/post', article.slug]">
+            <h1>{{ article.title }}</h1>
             <p>In my demo, the holy grail layout is nested inside a document, so there's no body or main tags like shown
               above.
               Regardless, we're interested in the class names and the appearance of sections in the markup as opposed to
