@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap, filter, debounceTime, distinct, distinctUntilChanged } from 'rxjs/operators';
+import { PostService } from '../post.service';
 
 const requiredValidator: ValidatorFn = (control: AbstractControl) => {
   console.log(control.value);
@@ -18,7 +19,7 @@ const requiredValidator: ValidatorFn = (control: AbstractControl) => {
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit {
-  titleExsit$: Observable<boolean>;
+  titleExist$: Observable<boolean>;
 
   customValidator = Validators.compose([
     Validators.required,
@@ -46,7 +47,7 @@ export class EditorComponent implements OnInit {
     return (this.form.get('tags') as FormArray).controls;
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private postService: PostService) { }
 
   ngOnInit() {
     // this.form.valueChanges.subscribe(data => console.log(data));
@@ -60,6 +61,14 @@ export class EditorComponent implements OnInit {
     //     return of(true);
     //   })
     // );
+
+    this.titleExist$ = this.form.get('title').valueChanges.pipe(
+      filter((title: string) => title.length >= 3),
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((title: string) => this.postService.titleExist(title)),
+      map(result => result.titleExist)
+    );
 
   }
 
@@ -79,6 +88,11 @@ export class EditorComponent implements OnInit {
 
   submit() {
     console.log(this.form.value);
+
+    this.postService.createArticle(this.form.value).subscribe(() => {
+      // TODO: 回到 /posts
+    });
+
   }
 
 }

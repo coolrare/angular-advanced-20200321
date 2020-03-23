@@ -10,7 +10,7 @@
             <!-- {{ form.get('title').value }}
             {{ form.get('title').invalid }} -->
             <!-- {{ form.get('title').errors | json }} -->
-            <span *ngIf="titleExsit$ | async" >* 標題重複</span>
+            <span *ngIf="titleExist$ | async" >* 標題重複</span>
 
           </fieldset>
           <fieldset class="form-group">

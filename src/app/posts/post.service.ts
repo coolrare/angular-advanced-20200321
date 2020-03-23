@@ -19,6 +19,15 @@ export class PostService {
   }
 
   createArticle(article: CreateArticle) {
-    return this.httpClient.post<SingleArticle>(`${environment.apiUrl}/api/articles`, { article });
+    return this.httpClient.post<SingleArticle>(`${environment.apiUrl}/api/articles`, { article }, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`
+      }
+    });
+  }
+
+  titleExist(title: string) {
+    return this.httpClient
+      .get<{titleExist: boolean}>(`${environment.apiUrl}/api/articles/title-exist/${encodeURI(title)}`);
   }
 }

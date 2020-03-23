@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './post/post.component';
 import { EditorComponent } from './editor/editor.component';
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'create',
+    canActivate: [AuthGuard],
     component: EditorComponent
   }
 ];
